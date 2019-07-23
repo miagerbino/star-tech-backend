@@ -21,6 +21,7 @@ public class UserController {
     @GetMapping(path="all-users",produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public List<User> listUsers(){
+        System.out.println("LOG: looking for users");
         return service.getAllUsers();
     }
 }

@@ -12,6 +12,9 @@ public class UserService {
     @Autowired
     private UserPersistence persistence;
 
-    public List<User> getAllUsers(){ return persistence.findAll();}
+    public List<User> getAllUsers(){
+        System.out.println("LOG: persistence for users");
+
+        return persistence.findAll();}
 
 }
