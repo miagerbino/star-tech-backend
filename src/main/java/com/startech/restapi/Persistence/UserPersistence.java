@@ -4,5 +4,5 @@ package com.startech.restapi.Persistence;
         import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserPersistence extends JpaRepository<User, Long> {
+public interface UserPersistence extends JpaRepository<Account, Long> {
 }

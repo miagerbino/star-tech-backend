@@ -1,6 +1,6 @@
 package com.startech.restapi.Controller;
 
-import com.startech.restapi.Persistence.User;
+import com.startech.restapi.Persistence.Account;
 import com.startech.restapi.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -20,7 +20,7 @@ public class UserController {
 
     @GetMapping(path="all-users",produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public List<User> listUsers(){
+    public List<Account> listUsers(){
         System.out.println("LOG: looking for users");
         return service.getAllUsers();
     }
