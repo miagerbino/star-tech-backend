@@ -1,4 +1,5 @@
 package com.startech.restapi.Persistence;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -9,7 +10,7 @@ public class Account {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "user_name")
     private String userName;
@@ -17,11 +18,11 @@ public class Account {
     @Column(name = "password")
     private String password;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -41,8 +42,7 @@ public class Account {
         this.password = password;
     }
 
-
-    public Account(int id, String userName, String password) {
+    public Account(Long id, String userName, String password) {
         this.id = id;
         this.userName = userName;
         this.password = password;

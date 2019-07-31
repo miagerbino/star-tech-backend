@@ -13,8 +13,13 @@ public class UserService {
     private UserPersistence persistence;
 
     public List<Account> getAllUsers(){
-        System.out.println("LOG: persistence for users");
-
         return persistence.findAll();}
 
+    public Account getUser(Long id){
+        return persistence.findById(id).orElse(null);
+    }
+
+    public void save(Account user) {
+        persistence.save(user);
+    }
 }

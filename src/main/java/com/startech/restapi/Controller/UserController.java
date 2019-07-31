@@ -4,13 +4,11 @@ import com.startech.restapi.Persistence.Account;
 import com.startech.restapi.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping(path="user/")
 public class UserController {
@@ -21,8 +19,20 @@ public class UserController {
     @GetMapping(path="all-users",produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public List<Account> listUsers(){
-        System.out.println("LOG: looking for users");
         return service.getAllUsers();
     }
+
+    @GetMapping(path="user-id", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Account getUserById(@RequestParam(name="id") Long id){
+        return service.getUser(id);
+    }
+
+    @PostMapping(path="create",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public void createUser(@RequestBody Account user){
+        service.save(user);
+    }
+
 }
 
