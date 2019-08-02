@@ -40,12 +40,6 @@ public class EventController {
         return service.getEventsForDay(userID,month,day);
     }
 
-//    @DeleteMapping(path="delete-event")
-//    @ResponseBody
-//    public void deleteEventsForUsersDay(@RequestParam(name="id")Long userID, @RequestParam(name="month")String month,@RequestParam(name="day")String day,@RequestParam(name="eventIndex")int eventIndex){
-//        service.deleteUsersEventForDay(userID,month, day,eventIndex);
-//    }
-
     @DeleteMapping(path="delete-event")
     @ResponseBody
     public void deleteEventsForUsersDay(@RequestParam(name="id")Long userId,@RequestParam(name="month")String month,@RequestParam(name="day")String day,@RequestParam(name="eventIndex")String eventIndex){
@@ -58,9 +52,9 @@ public class EventController {
         return service.getEventFromIndex(userID,month,day,eventIndex);
     }
 
-//    @GetMapping(path="events-by-user",produces = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseBody
-//    public List<Event> listEventsForUsersDay(@RequestParam(name="id")Long userID, @RequestParam(name="month")String month,@RequestParam(name="from")String from, @RequestParam(name = "to") String to) {
-//        return service.getUsersEventsForDay(userID, month, from, to);
-//    }
+    @PutMapping(path="edit-event")
+    @ResponseBody
+    public void editEvent(){
+
+    }
 }
