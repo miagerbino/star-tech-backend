@@ -36,8 +36,8 @@ public class EventController {
 
     @GetMapping(path="events-for-user-day",produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public List<Event> listEventsForUsersDay(@RequestParam(name="id")Long userID, @RequestParam(name="month")String month,@RequestParam(name="day")String day){
-        return service.getUsersEventsForDay(userID,month, day);
+    public List<Event> listEventsForDay(@RequestParam(name="id")Long userID, @RequestParam(name="month")String month,@RequestParam(name="day")String day){
+        return service.getEventsForDay(userID,month,day);
     }
 
 //    @DeleteMapping(path="delete-event")
@@ -48,7 +48,19 @@ public class EventController {
 
     @DeleteMapping(path="delete-event")
     @ResponseBody
-    public void deleteEventsForUsersDay(@RequestParam Event ev){
-        service.deleteUsersEventForDay(ev);
+    public void deleteEventsForUsersDay(@RequestParam(name="id")Long userId,@RequestParam(name="month")String month,@RequestParam(name="day")String day,@RequestParam(name="eventIndex")String eventIndex){
+        service.deleteUsersEventForDay(userId,month,day,eventIndex);
     }
+
+    @GetMapping(path="event-from-day",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Event getEventFromDayAndIndex(@RequestParam(name="id")Long userID, @RequestParam(name="month")String month,@RequestParam(name="day")String day,@RequestParam(name="eventIndex")int eventIndex){
+        return service.getEventFromIndex(userID,month,day,eventIndex);
+    }
+
+//    @GetMapping(path="events-by-user",produces = MediaType.APPLICATION_JSON_VALUE)
+//    @ResponseBody
+//    public List<Event> listEventsForUsersDay(@RequestParam(name="id")Long userID, @RequestParam(name="month")String month,@RequestParam(name="from")String from, @RequestParam(name = "to") String to) {
+//        return service.getUsersEventsForDay(userID, month, from, to);
+//    }
 }
