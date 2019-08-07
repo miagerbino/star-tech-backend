@@ -40,44 +40,22 @@ public class EventService {
         return persistence.findAll(example);
     }
 
-    public List<Event> getUsersEventsForDay(Long userID, String month, String day){
+    public void deleteUsersEventForDay(Long userId,String month,String day, int eventIndex) {
         ExampleMatcher matcher =
                 ExampleMatcher.matching()
-                        .withMatcher("userID",contains())
-                        .withMatcher("month", contains().ignoreCase())
-                        .withMatcher("day", contains().ignoreCase());
-
-        Event ex = new Event(userID, null,null,month,day,null,null);
-        Example<Event> example = Example.of(ex,matcher);
-
-        return persistence.findAll(example);
-
-        //Filter Criteria
-//        Event filterBy = new Event(userID, null,null,month,day,null,null);
-//
-//        Example<Event> e = Example.of(filterBy);
-//
-//        List<Event> findEvents = persistence.findAll(e);
-//        return findEvents;
-    }
-
-    public void deleteUsersEventForDay(Long userId,String month,String day, String eventIndex) {
-        ExampleMatcher matcher =
-                ExampleMatcher.matching()
-                        .withMatcher("userId",contains())
-                        .withMatcher("title", contains().ignoreCase())
+                        .withMatcher("userId",exact())
                         .withMatcher("location", contains().ignoreCase())
-                        .withMatcher("month",contains())
-                        .withMatcher("day", contains().ignoreCase())
+                        .withMatcher("month",exact().ignoreCase())
+                        .withMatcher("day", exact())
                         .withMatcher("startTime", contains().ignoreCase())
                         .withMatcher("endTime", contains().ignoreCase());
 
         Event ex = new Event(userId, null,null,month,day,null,null);
         Example<Event> example = Example.of(ex,matcher);
 
-        List <Event> excellent = persistence.findAll(example);
+        List <Event> events = persistence.findAll(example);
 
-        Event objectToDelete = excellent.get(0);
+        Event objectToDelete = events.get(eventIndex-1);
 
         persistence.delete(objectToDelete);
     }
@@ -107,19 +85,27 @@ public class EventService {
 
         return persistence.findAll(example);
     }
-//    public List<Event> getUsersEventsForDay(final Long userID, final String month, final String from, final String to) {
-//        //checking for invalid inputs
-//        try {
-//            Integer.valueOf(from);
-//            Integer.valueOf(to);
-//        } catch (Exception e) {
-//            throw new NumberFormatException("make sure to put numbers on the to and from parameters");
-//        }
-//        final List<Event> allEvents = persistence.findAll();
-//        //converting string dates to integer and comparing them
-//        //compareTo works as if the first > second return 1
-//        //if first < second return -1
-//        //if equal returns 0
+    public List<Event> getUsersEventsForDay(final Long userID, final String month, final String from, final String to) {
+        //checking for invalid inputs
+        try {
+            Integer.valueOf(from);
+            Integer.valueOf(to);
+        } catch (Exception e) {
+            throw new NumberFormatException("make sure to put numbers on the to and from parameters");
+        }
+        ExampleMatcher matcher =
+                ExampleMatcher.matching()
+                        .withMatcher("userID",exact())
+                        .withMatcher("month", exact().ignoreCase());
+        Event ex = new Event(userID, null,null,month,null,null,null);
+        Example<Event> example = Example.of(ex,matcher);
+
+        final List<Event> allEvents = persistence.findAll(example);
+        return allEvents;
+        //converting string dates to integer and comparing them
+        //compareTo works as if the first > second return 1
+        //if first < second return -1
+        //if equal returns 0
 //        final Comparator<Event> dateComparator = (o1, o2) -> {
 //            Integer firstDate = Integer.valueOf(o1.getDay());
 //            Integer secondDate = Integer.valueOf(o2.getDay());
@@ -137,7 +123,7 @@ public class EventService {
 //                .sorted(dateComparator.thenComparing(startTimeComparator))
 //                //collecting all values to list and return the function
 //                .collect(Collectors.toList());
-//    }
+    }
 
 
 }
